@@ -1,6 +1,8 @@
 name=TileSwitcher v.PD
 author=Anton Vinogradov
-description=TileSwitcher a game about organizing tiles into neat patterns to reach some score
+description=TileSwitcher: a game about organizing tiles into neat patterns to reach some score
 bundleID=com.anton-borealis.tile_switcher
+imagePath=images/card.png
+launchSoundPath=sounds/explosion.wav
 version=PD.1.0
 buildNumber=1

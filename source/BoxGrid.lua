@@ -97,9 +97,10 @@ function BoxGrid:set_palette(palette_name)
     end
     for y=1, self.height, 1 do
         for x=1, self.width, 1 do
-            local color_num = color_layout[x + (y-1) * 5]
+            local box = self:getBox(x, y)
+            local color_num = box.color_num
             local color = self.palette[color_num]
-            self:getBox(x, y):set_color(color, color_num)
+            box:set_color(color, color_num)
         end
     end
 end
@@ -312,7 +313,7 @@ local update_needed = true
 
 function BoxGrid:handle_keys()
     -- key repeats for directional inputs
-	if pd.buttonJustPressed(pd.kButtonLeft) then
+	if pd.buttonJustPressed(pd.kButtonLeft) and left_repeat_timer == nil then
         left_repeat_timer = timer.keyRepeatTimer(function()
             self:change_highlighted(-1, 0)
             self:random_blip_sound()
@@ -326,7 +327,7 @@ function BoxGrid:handle_keys()
         end
     end
     
-	if pd.buttonJustPressed(pd.kButtonRight) then
+	if pd.buttonJustPressed(pd.kButtonRight) and right_repeat_timer == nil then
         right_repeat_timer = timer.keyRepeatTimer(function()
             self:change_highlighted(1, 0)
             self:random_blip_sound()
@@ -340,7 +341,8 @@ function BoxGrid:handle_keys()
         end
     end
     
-	if pd.buttonJustPressed(pd.kButtonUp) then
+	if pd.buttonJustPressed(pd.kButtonUp) and up_repeat_timer == nil then
+        
         up_repeat_timer = timer.keyRepeatTimer(function()
             self:change_highlighted(0, -1)
             self:random_blip_sound()
@@ -354,7 +356,7 @@ function BoxGrid:handle_keys()
         end
     end
     
-	if pd.buttonJustPressed(pd.kButtonDown) then
+	if pd.buttonJustPressed(pd.kButtonDown) and down_repeat_timer == nil then
         down_repeat_timer = timer.keyRepeatTimer(function()
             self:change_highlighted(0, 1)
             self:random_blip_sound()
@@ -385,7 +387,7 @@ end
 function BoxGrid:update()
     if self.disable_updates then
         -- write instructions on screen
-        local instructions_text = "Match the colored tiles to form rows and column of 3+\nUse Ⓐ to pickup tiles and ✛ to move \n\nPress Menu ⊙ to start."
+        local instructions_text = "Match the colored tiles to form rows and columns of 3+\nUse Ⓐ to pickup tiles and ✛ to move \n\nPress Menu ⊙ to start."
         gfx.drawTextInRect(instructions_text, 240, 12, 150, 200)
 
         return

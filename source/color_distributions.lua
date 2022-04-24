@@ -70,8 +70,9 @@ function get_level()
     local random_level = math.random(#color_counts)
     
     -- take the color_counts and turn them into a color table (which a 5x5 table, but its flattened into a 25x1 cuz easier)
+    local shuffled_color_counts = Shuffle(color_counts[random_level])
     color_layout = {}
-    for i, v in ipairs(color_counts[random_level]) do
+    for i, v in ipairs(shuffled_color_counts) do
         for j=1, v+2, 1 do
             color_layout[#color_layout+1] = i
         end
