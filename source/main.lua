@@ -25,8 +25,6 @@ local function initGame()
     end)
     -- 2. Color Palettes
     local palette_names = get_palette_names()
-    print("getting the palettes")
-    printTable(palette_names)
     menu:addOptionsMenuItem("Palettes", palette_names, function(palette_name)
         box_grid:set_palette(palette_name)
     end)

@@ -87,6 +87,11 @@ function BoxGrid:new_level()
     -- enable updates
     self.disable_updates = false
     self.game_started = true
+
+    -- reset the score and update it
+    self:score_grid()
+    update_needed = true
+    self:update()
 end
 
 function BoxGrid:set_palette(palette_name)
@@ -178,8 +183,9 @@ function BoxGrid:score_grid()
     for i, match in pairs(filtered_matches) do
         score += match.len
     end
-
-    return filtered_matches, score
+    
+    self.score = score
+    self.breakdown_text = self:score_breakdown(filtered_matches)
 end
 
 function BoxGrid:score_breakdown(matches)
@@ -396,13 +402,10 @@ function BoxGrid:update()
     -- only do update checks once the player has stopped holding any directions
     if (left_repeat_timer == nil and right_repeat_timer == nil and up_repeat_timer == nil and down_repeat_timer == nil) and update_needed then
         -- draw the score
-        local matches, score = self:score_grid()
-        local breakdown_text = self:score_breakdown(matches)
-        self.score = score
-        self.breakdown_text = breakdown_text
+        self:score_grid()
 
         -- check if the game is done
-        if score >= self.max_score then
+        if self.score >= self.max_score then
             if not self.is_done then
                 self:level_finished()
             end
