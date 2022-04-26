@@ -146,7 +146,7 @@ function BoxGrid:score_grid()
         local score_entry = {}
 
         for x=1, self.width, 1 do
-            score_entry, old_score_entry = self:find_match(score_entry, x, y, "down")
+            score_entry, old_score_entry = self:find_match(score_entry, x, y, "right")
             -- add the old score if we had to create a new one
             if old_score_entry ~= nil then
                 matches[#matches + 1] = old_score_entry
@@ -161,7 +161,7 @@ function BoxGrid:score_grid()
         local score_entry = {}
 
         for y=1, self.height, 1 do
-            score_entry, old_score_entry = self:find_match(score_entry, x, y, "right")
+            score_entry, old_score_entry = self:find_match(score_entry, x, y, "down")
             -- add the old score if we had to create a new one
             if old_score_entry ~= nil then
                 matches[#matches + 1] = old_score_entry
