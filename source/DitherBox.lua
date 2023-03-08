@@ -90,6 +90,5 @@ function DitherBox:draw()
     -- draw the "color" of the box
     gfxp.set(self.color)
     local margin_x = self.margin + self.stroke_width + x
-    local margin_width = width - 2 * (self.margin + self.stroke_width)
     gfx.fillRoundRect(margin_x, margin_x, self.width - (2 * margin_x), self.height - (2 * margin_x), self.box_radius)
 end
